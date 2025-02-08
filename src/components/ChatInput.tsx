@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
-
+import React, { useState } from "react";
+import "./chat.css";
 interface ChatInputProps {
   onSend: (message: string) => void;
 }
 
 const ChatInput: React.FC<ChatInputProps> = ({ onSend }) => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
 
   const handleSend = () => {
     if (input.trim()) {
       onSend(input);
-      setInput('');
+      setInput("");
     }
   };
 
   return (
-    <div>
+    <div className="chat-input">
       <input
         type="text"
         value={input}
+        id="input"
         onChange={(e) => setInput(e.target.value)}
         placeholder="Type a message"
       />
