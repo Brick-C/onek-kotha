@@ -1,7 +1,8 @@
 import React from "react";
+import EntryForm from "./pages/Entry";
 
 const App: React.FC = () => {
-  return <div>Hello World</div>;
+  return <EntryForm />;
 };
 
 export default App;
