@@ -1,8 +1,6 @@
 import React from "react";
 
-interface EntryProps {
-  onSubmit: (ip: string, port: string, name: string) => void;
-}
+interface EntryProps {}
 
 interface EntryState {
   ip: string;
@@ -24,7 +22,9 @@ export default class Entry extends React.Component<EntryProps, EntryState> {
 
   handleSubmit(event: React.FormEvent) {
     event.preventDefault();
-    this.props.onSubmit(this.state.ip, this.state.port, this.state.name);
+    console.log(this.state.ip);
+    console.log(this.state.port);
+    console.log(this.state.name);
   }
 
   render(): React.ReactNode {
@@ -72,10 +72,7 @@ export default class Entry extends React.Component<EntryProps, EntryState> {
             }
           />
         </div>
-        <button
-          type="submit"
-          // onClick={this.handleSubmit}
-        >
+        <button type="submit" onClick={this.handleSubmit}>
           Submit
         </button>
       </form>
