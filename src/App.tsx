@@ -1,8 +1,12 @@
-import React from "react";
-import EntryForm from "./pages/Entry";
+import React, { useState } from "react";
+import Entry from "./pages/Entry";
 
 const App: React.FC = () => {
-  return <EntryForm />;
+  return (
+    <div>
+      <Entry />
+    </div>
+  );
 };
 
 export default App;
