@@ -1,4 +1,5 @@
 import React from "react";
+import "./entry.css";
 
 interface EntryProps {}
 
@@ -29,53 +30,57 @@ export default class Entry extends React.Component<EntryProps, EntryState> {
 
   render(): React.ReactNode {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div>
-          <label htmlFor="ip">IP Address:</label>
-          <input
-            type="text"
-            id="ip"
-            name="ip"
-            value={this.state.ip}
-            onChange={(e) =>
-              this.setState({
-                ip: e.target.value,
-              })
-            }
-          />
+      <div className="container">
+        <div className="left">
+          <div className="form-container">
+            <form className="form" onSubmit={this.handleSubmit}>
+              <label htmlFor="ip">IP Address</label>
+              <input
+                type="text"
+                id="ip"
+                name="ip"
+                value={this.state.ip}
+                onChange={(e) =>
+                  this.setState({
+                    ip: e.target.value,
+                  })
+                }
+              />
+
+              <label htmlFor="port">Port</label>
+              <input
+                type="text"
+                id="port"
+                name="port"
+                value={this.state.port}
+                onChange={(e) =>
+                  this.setState({
+                    port: e.target.value,
+                  })
+                }
+              />
+
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={this.state.name}
+                onChange={(e) =>
+                  this.setState({
+                    name: e.target.value,
+                  })
+                }
+              />
+
+              <button type="submit" onClick={this.handleSubmit}>
+                Submit
+              </button>
+            </form>
+          </div>
         </div>
-        <div>
-          <label htmlFor="port">Port:</label>
-          <input
-            type="text"
-            id="port"
-            name="port"
-            value={this.state.port}
-            onChange={(e) =>
-              this.setState({
-                port: e.target.value,
-              })
-            }
-          />
-        </div>
-        <div>
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={this.state.name}
-            onChange={(e) =>
-              this.setState({
-                name: e.target.value,
-              })
-            }
-          />
-        </div>
-        <button type="submit" onClick={this.handleSubmit}>
-          Submit
-        </button>
-      </form>
+        <div className="right"></div>
+      </div>
     );
   }
 }
