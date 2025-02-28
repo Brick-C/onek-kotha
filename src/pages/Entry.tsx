@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import "./entry.css";
+import { useNavigate } from "react-router-dom";
 
 interface EntryProps {}
 
@@ -9,78 +10,69 @@ interface EntryState {
   name: string;
 }
 
-export default class Entry extends React.Component<EntryProps, EntryState> {
-  constructor(props: EntryProps) {
-    super(props);
-    this.state = {
-      ip: "",
-      port: "",
-      name: "",
-    };
+//Using functional component because hooks(useNavigate) do not work with class componets
+const Entry: React.FC<EntryProps> = (props) => {
+  const navigate = useNavigate();
+  const [state, setState] = useState<EntryState>({
+    ip: "localhost",
+    port: "9999",
+    name: "",
+  });
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleSubmit(event: React.FormEvent) {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log(this.state.ip);
-    console.log(this.state.port);
-    console.log(this.state.name);
-  }
+    console.log(state.ip);
+    console.log(state.port);
+    console.log(state.name);
+    navigate("/home");
+  };
 
-  render(): React.ReactNode {
-    return (
-      <div className="container">
-        <div className="left">
-          <div className="form-container">
-            <form className="form" onSubmit={this.handleSubmit}>
-              <label htmlFor="ip">IP Address</label>
-              <input
-                type="text"
-                id="ip"
-                name="ip"
-                value={this.state.ip}
-                onChange={(e) =>
-                  this.setState({
-                    ip: e.target.value,
-                  })
-                }
-              />
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setState({
+      ...state, //using spread operator; spreading previous state to not overwrite the other state properties
+      [e.target.name]: e.target.value, //dynamically based on input name; example name="ip"/"name"/port in the input field
+    });
+  };
 
-              <label htmlFor="port">Port</label>
-              <input
-                type="text"
-                id="port"
-                name="port"
-                value={this.state.port}
-                onChange={(e) =>
-                  this.setState({
-                    port: e.target.value,
-                  })
-                }
-              />
+  return (
+    <div className="container">
+      <div className="left">
+        <div className="form-container">
+          <form className="form" onSubmit={handleSubmit}>
+            <label htmlFor="ip">IP Address</label>
+            <input
+              type="text"
+              id="ip"
+              name="ip"
+              value={state.ip}
+              onChange={handleChange}
+            />
+            <label htmlFor="port">Port</label>
+            <input
+              type="text"
+              id="port"
+              name="port"
+              value={state.port}
+              onChange={handleChange}
+            />
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={state.name}
+              onChange={handleChange}
+            />
 
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={this.state.name}
-                onChange={(e) =>
-                  this.setState({
-                    name: e.target.value,
-                  })
-                }
-              />
-
-              <button type="submit" onClick={this.handleSubmit}>
-                Submit
-              </button>
-            </form>
-          </div>
+            {/* do not need to use handleSubmit inside the button as is already
+            inside the form control <form> 👆*/}
+            <button type="submit">Submit</button>
+          </form>
         </div>
-        <div className="right"></div>
       </div>
-    );
-  }
-}
+      <div className="right"></div>
+    </div>
+  );
+};
+
+export default Entry;
